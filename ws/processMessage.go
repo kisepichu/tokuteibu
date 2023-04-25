@@ -1,14 +1,14 @@
-package handlers
+package ws
 
 import (
 	"encoding/json"
 	"fmt"
 
-	"tokuteibu/handlers/wsHandlers"
 	"tokuteibu/streamer"
 )
 
-func HandlerWebSocket(s *streamer.Streamer, data streamer.ReceiveData) error {
+
+func ProcessMessage(s *streamer.Streamer, data streamer.ReceiveData) error {
 	var req streamer.Payload
 	err := json.Unmarshal(data.Payload, &req)
 	if err != nil {
@@ -21,7 +21,7 @@ func HandlerWebSocket(s *streamer.Streamer, data streamer.ReceiveData) error {
 
 	switch req.Type {
 	case "SET_VIEWING":
-		wsHandlers.SetViewing(s, data.Id, req.Body)
+		SetViewing(s, data.Id, req.Body)
 	default:
 		fmt.Printf("invalid method")
 	}

@@ -5,6 +5,7 @@ import (
 
 	"tokuteibu/handlers"
 	"tokuteibu/streamer"
+	"tokuteibu/ws"
 
 	"github.com/labstack/echo/v4"
 )
@@ -26,8 +27,9 @@ func main(){
 			s.ConnectWS(c, func(c *streamer.Client) {})
 			return nil
 		})
+		api.GET("/events", handlers.HandlerGetEvents)
 	}
-	go s.Listen(handlers.HandlerWebSocket)
+	go s.Listen(ws.ProcessMessage)
 
 	e.Logger.Panic(e.Start(":3939"))
 }

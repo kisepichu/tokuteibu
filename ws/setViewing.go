@@ -1,4 +1,4 @@
-package wsHandlers
+package ws
 
 import (
 	"encoding/json"
